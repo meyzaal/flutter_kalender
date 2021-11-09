@@ -54,6 +54,7 @@ final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
 
 class _BodyState extends State<Body> {
   bool _switchValue = false;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -61,6 +62,8 @@ class _BodyState extends State<Body> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
+        print(_selectedDay);
+        // print();
         // _rangeStart = null; // Important to clean those
         // _rangeEnd = null;
         // _rangeSelectionMode = RangeSelectionMode.toggledOff;
@@ -84,7 +87,7 @@ class _BodyState extends State<Body> {
             firstDay: kFirstDay,
             lastDay: kLastDay,
             locale: 'id_ID',
-            calendarFormat: CalendarFormat.week,
+            calendarFormat: _calendarFormat,
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
             },
@@ -143,6 +146,15 @@ class _BodyState extends State<Body> {
                   fontSize: 16.0,
                   fontWeight: FontWeight.w300),
             ),
+            onFormatChanged: (format) {
+              if (_calendarFormat != format) {
+                // Call `setState()` when updating calendar format
+                setState(() {
+                  _calendarFormat = format;
+                });
+              }
+            },
+            // calendarBuilders: CalendarBuilders(headerTitleBuilder: headtit),
           ),
         ),
         Expanded(
@@ -182,12 +194,14 @@ class _BodyState extends State<Body> {
                         inactiveBgColor: Colors.grey.shade400,
                         labels: ['Hari ini', 'Bulan ini'],
                         onToggle: (index) {
-                          print('switched to: $index');
+                          print(index);
+                          // return int index;
                         },
                       ),
                     ],
                   ),
                 ),
+                // index == 0 ? Text('data') : Text('aa'),
                 SizedBox(height: 20.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
