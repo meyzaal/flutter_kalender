@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  initializeDateFormatting().then((_) => runApp(Kalender()));
+  runApp(Kalender());
 }
 
 class Kalender extends StatelessWidget {
@@ -13,6 +14,14 @@ class Kalender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('id', 'ID'),
+      ],
       home: Scaffold(
         backgroundColor: Colors.blue,
         appBar: AppBar(
@@ -187,44 +196,38 @@ class _BodyState extends State<Body> {
                         SizedBox(
                           height: 5.0,
                         ),
-    
+
                         //TabBar Harian/Bulanan
                         Container(
                           height: 40,
-                          width: 180,
+                          width: 200,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade400,
                             borderRadius: BorderRadiusDirectional.circular(100),
                           ),
                           child: TabBar(
-                            indicator: BoxDecoration(
-                              color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            tabs: [
-                              Tab(text: 'Hari Ini'),
-                              Tab(text: 'Bulan Ini')
-                            ]
-                          ),
+                              indicator: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              tabs: [
+                                Tab(text: 'Hari Ini'),
+                                Tab(text: 'Bulan Ini')
+                              ]),
                         )
-    
                       ],
                     ),
                   ),
-    
                   SizedBox(height: 20.0),
-                  
-    
                   SizedBox(
                     height: 300,
                     child: TabBarView(
                       children: [
                         thisDay(),
                         thisMonth(),
-                      ]
+                      ],
                     ),
                   ),
-    
                 ],
               ),
             ),
@@ -270,9 +273,7 @@ class thisDay extends StatelessWidget {
             ],
           ),
         ),
-
         SizedBox(height: 10.0),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
@@ -308,17 +309,15 @@ class thisDay extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text(
-                            "Collection",
+                            "Collection - matkul",
                             style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w300),
+                                fontSize: 16.0, fontWeight: FontWeight.w300),
                           ),
                           SizedBox(height: 5.0),
                           const Text(
                             "Quiz 1",
                             style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
                           ),
                           SizedBox(height: 5.0),
                           Row(
@@ -391,9 +390,7 @@ class thisMonth extends StatelessWidget {
             ],
           ),
         ),
-
         SizedBox(height: 10.0),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
@@ -431,15 +428,13 @@ class thisMonth extends StatelessWidget {
                           const Text(
                             "Sales",
                             style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w300),
+                                fontSize: 16.0, fontWeight: FontWeight.w300),
                           ),
                           SizedBox(height: 5.0),
                           const Text(
                             "Quiz 1",
                             style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
                           ),
                           SizedBox(height: 5.0),
                           Row(
@@ -472,9 +467,7 @@ class thisMonth extends StatelessWidget {
             ],
           ),
         ),
-
         SizedBox(height: 10.0),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
@@ -512,15 +505,13 @@ class thisMonth extends StatelessWidget {
                           const Text(
                             "Collection",
                             style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w300),
+                                fontSize: 16.0, fontWeight: FontWeight.w300),
                           ),
                           SizedBox(height: 5.0),
                           const Text(
                             "Quiz 1",
                             style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
                           ),
                           SizedBox(height: 5.0),
                           Row(
@@ -553,7 +544,6 @@ class thisMonth extends StatelessWidget {
             ],
           ),
         ),
-
       ],
     );
   }
