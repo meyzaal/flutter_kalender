@@ -1,4 +1,3 @@
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -11,12 +10,13 @@ class DocumentRepository {
     try {
       final response = await http.get(Uri.parse(_baseUrl));
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         Iterable it = jsonDecode(response.body);
-        List<DocumentModel> documentmodel = it.map((e) => DocumentModel.fromJson(e)).toList();
+        List<DocumentModel> documentmodel =
+            it.map((e) => DocumentModel.fromJson(e)).toList();
         return documentmodel;
       }
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
     }
   }
@@ -27,14 +27,11 @@ class DocumentModel {
   final String judul;
   final String deskripsi;
 
-  DocumentModel( 
-    {
-      required this.id,
-      required this.judul,
-      required this.deskripsi,
-
-    }
-  );
+  DocumentModel({
+    required this.id,
+    required this.judul,
+    required this.deskripsi,
+  });
 
   factory DocumentModel.fromJson(Map<String, dynamic> json) {
     return DocumentModel(
