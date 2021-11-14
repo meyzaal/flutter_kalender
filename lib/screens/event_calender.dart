@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_event_calendar/models/event_model.dart';
+import 'package:flutter_event_calendar/models/event_model_local.dart';
+// import 'package:flutter_event_calendar/models/event_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class EventCalender extends StatefulWidget {
@@ -18,25 +19,25 @@ class EventCalender extends StatefulWidget {
 
 class _EventCalenderState extends State<EventCalender> {
 
-  List<DocumentModel> documentmodel = [];
-  DocumentRepository repository = DocumentRepository();
+  // List<DocumentModel> documentmodel = [];
+  // DocumentRepository repository = DocumentRepository();
 
-  getData() async {
-    documentmodel = await repository.getData();
-    setState(() {});
-  }
+  // getData() async {
+  //   documentmodel = await repository.getData();
+  //   setState(() {});
+  // }
 
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   getData();
+  //   super.initState();
+  // }
 
-  Future<Null> _refresh() {
-    return getData().then((_documentmodel) {
-      setState(() => documentmodel = _documentmodel);
-    });
-  }
+  // Future<Null> _refresh() {
+  //   return getData().then((_documentmodel) {
+  //     setState(() => documentmodel = _documentmodel);
+  //   });
+  // }
 
   bool _switchValue = false;
   CalendarFormat _calendarFormat = CalendarFormat.week;
@@ -58,10 +59,10 @@ class _EventCalenderState extends State<EventCalender> {
     }
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -69,7 +70,7 @@ class _EventCalenderState extends State<EventCalender> {
             // iconSize: 24.0,
             onPressed: () {},
           ),
-          title: Text("Kalender"),
+          title: const Text("Kalender"),
           elevation: 0.0,
           backgroundColor: Colors.blue,
           actions: <Widget>[
@@ -81,298 +82,306 @@ class _EventCalenderState extends State<EventCalender> {
           ],
         ),
 
-        body: DefaultTabController(
-          length: 2, 
+        body: Container(
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                // height: 150,
-                color: Colors.blue,
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: TableCalendar(
-                  focusedDay: kToday,
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  locale: 'id_ID',
-                  calendarFormat: _calendarFormat,
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: _onDaySelected,
-                  calendarStyle: CalendarStyle(
-                    defaultTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    holidayTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    weekendTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    // todayTextStyle: TextStyle(color: Colors.white),
-                    todayDecoration: BoxDecoration(
-                      // color: Colors.lightBlueAccent,
-                      border: Border.all(color: Colors.white),
-                      shape: BoxShape.circle,
-                    ),
-                    selectedDecoration:
-                        BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                    selectedTextStyle: TextStyle(color: Colors.blue),
-                    // outsideTextStyle: TextStyle(color: Colors.white),
-                  ),
-                  headerStyle: HeaderStyle(
-                    titleCentered: true,
-                    // formatButtonShowsNext: false,
-                    formatButtonVisible: false,
-                    leftChevronVisible: false,
-                    rightChevronVisible: false,
-                    // leftChevronIcon: Icon(
-                    //   Icons.chevron_left_rounded,
-                    //   color: Colors.white,
-                    // ),
-                    // rightChevronIcon:
-                    //     Icon(Icons.chevron_right_rounded, color: Colors.white),
-                    titleTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  daysOfWeekStyle: DaysOfWeekStyle(
-                    weekdayStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w300),
-                    weekendStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w300),
-                  ),
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      // Call `setState()` when updating calendar format
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  // calendarBuilders: CalendarBuilders(headerTitleBuilder: headtit),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  // color: Colors.white,
-                  // height: MediaQuery.of(context).size.height,
-                  // width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'Agenda Saya',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
 
-                            //TabBar Harian/Bulanan
-                            Container(
-                              height: 40,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade400,
-                                borderRadius: BorderRadiusDirectional.circular(100),
-                              ),
-                              child: TabBar(
-                                  indicator: BoxDecoration(
-                                    color: Colors.blueAccent,
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  tabs: [
-                                    Tab(text: 'Hari Ini'),
-                                    Tab(text: 'Bulan Ini')
-                                  ]),
-                            )
-                          ],
+              //kalender
+              Container(
+                // width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  // color: Colors.blue,
+                ),
+                child: Column(
+                  children: [
+                    TableCalendar(
+                      focusedDay: kToday,
+                      firstDay: kFirstDay,
+                      lastDay: kLastDay,
+                      locale: 'id_ID',
+                      calendarFormat: _calendarFormat,
+                      selectedDayPredicate: (day) {
+                        return isSameDay(_selectedDay, day);
+                      },
+                      onDaySelected: _onDaySelected,
+                      calendarStyle: CalendarStyle(
+                        defaultTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        holidayTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        weekendTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        // todayTextStyle: TextStyle(color: Colors.white),
+                        todayDecoration: BoxDecoration(
+                          // color: Colors.lightBlueAccent,
+                          border: Border.all(color: Colors.white),
+                          shape: BoxShape.circle,
+                        ),
+                        selectedDecoration:
+                            BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                        selectedTextStyle: TextStyle(color: Colors.blue),
+                        // outsideTextStyle: TextStyle(color: Colors.white),
+                      ),
+                      headerStyle: HeaderStyle(
+                        titleCentered: true,
+                        // formatButtonShowsNext: false,
+                        formatButtonVisible: false,
+                        leftChevronVisible: false,
+                        rightChevronVisible: false,
+                        // leftChevronIcon: Icon(
+                        //   Icons.chevron_left_rounded,
+                        //   color: Colors.white,
+                        // ),
+                        // rightChevronIcon:
+                        //     Icon(Icons.chevron_right_rounded, color: Colors.white),
+                        titleTextStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
                         ),
                       ),
-                      SizedBox(height: 20.0),
-                      SizedBox(
-                        height: 300,
-                        child: TabBarView(
-                          children: [
+                      daysOfWeekStyle: DaysOfWeekStyle(
+                        weekdayStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w300),
+                        weekendStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      onFormatChanged: (format) {
+                        if (_calendarFormat != format) {
+                          // Call `setState()` when updating calendar format
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        }
+                      },
+                      // calendarBuilders: CalendarBuilders(headerTitleBuilder: headtit),
+                    ),
+                  ],
+                ),
+              ),
 
-                            Container(
-                              child: Column(
+              DefaultTabController(
+                length: 2,
+                child: Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      // color: Colors.blue,
+                      color: Colors.pink,
+                      // color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                          
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            // color: Colors.amber,
+                          ),
+                          child: Center(
+                            child: const Text(
+                              'Agenda Saya',
+                              style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+                        ),
+                          
+                        //TabBar
+                        Container(
+                          height: MediaQuery.of(context).size.height*0.06,
+                          width: MediaQuery.of(context).size.width/2,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadiusDirectional.circular(100),
+                          ),
+                          child: TabBar(
+                            indicator: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            tabs: const [
+                              Tab(text: 'Hari Ini'),
+                              Tab(text: 'Bulan Ini')
+                            ]
+                          ),
+                        ),
+
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              // height: MediaQuery.of(context).size.height,
+                              decoration: const BoxDecoration(
+                                color: Colors.yellow
+                              ),
+                              child: TabBarView(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 70.0,
-                                          // color: Colors.amber,
-                                          child: const Text(
-                                            "Hari ini",
-                                            style: TextStyle(fontSize: 16.0),
-                                          ),
-                                        ),
-                                        // SizedBox(
-                                        //   width: 20.0,
-                                        // ),
-                                        Expanded(
-                                          child: Container(
-                                            color: Colors.black26,
-                                            height: 1.0,
-                                            // width: MediaQuery.of(context).size.width,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  
-                                  SizedBox(height: 10.0),
 
-                                  Container(
-
-                                    color: Colors.blue,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: documentmodel.length,
-                                      itemBuilder: (context, index) {
-                                        DocumentModel document = documentmodel[index];
-                                        return InkWell(
+                                  ListView.builder(
+                                    itemCount: documentmodel.length,
+                                    itemBuilder: (context, index) {
+                                      DocumentModel document = documentmodel[index];
+                                      return InkWell(
                                           child: Card(
-                                            child: Column(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                                  child: Row(
-                                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
 
-                                                      Container(
-                                                        height: 50.0,
-                                                        width: 50.0,
-                                                        decoration: const BoxDecoration(
-                                                            shape: BoxShape.circle, color: Colors.blue),
-                                                        child: const Icon(
-                                                          Icons.quiz_outlined,
-                                                          color: Colors.white,
-                                                          size: 30.0,
-                                                          // color: Colors.blue,
-                                                        ),
-                                                      ),
+                                                  Container(
+                                                    height: 50.0,
+                                                    width: 50.0,
+                                                    decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle, color: Colors.blue),
+                                                    child: const Icon(
+                                                      Icons.quiz_outlined,
+                                                      color: Colors.white,
+                                                      size: 30.0,
+                                                      // color: Colors.blue,
+                                                    ),
+                                                  ),
 
-                                                      SizedBox(width: 5.0),
+                                                  SizedBox(width: 10.0),
 
-                                                      Expanded(
-                                                        child: Container(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment.start,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                // "Sales",
-                                                                document.judul,
-                                                                style: TextStyle(
-                                                                    fontSize: 16.0, fontWeight: FontWeight.w300),
-                                                              ),
-                                                              SizedBox(height: 5.0),
-                                                              Text(
-                                                                // "Quiz 1",
-                                                                document.deskripsi,
-                                                                style: TextStyle(
-                                                                    fontSize: 18.0, fontWeight: FontWeight.w500),
-                                                              ),
-                                                              SizedBox(height: 5.0),
-                                                              Row(
-                                                                children: const <Widget>[
-                                                                  Icon(
-                                                                    Icons.access_time,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  SizedBox(width: 5.0),
-                                                                  Text(
-                                                                    "09:00 WIB",
-                                                                    style: TextStyle(
-                                                                        fontSize: 14.0,
-                                                                        fontWeight: FontWeight.w300),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
+                                                  Container(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+
+                                                        Text(
+                                                          document.judul,
+                                                          style: const TextStyle(
+                                                            fontSize: 16.0, 
+                                                            fontWeight: FontWeight.w300
                                                           ),
                                                         ),
-                                                      ),
 
-                                                      SizedBox(width: 5.0),
+                                                        Text(
+                                                          document.deskripsi,
+                                                          style: const TextStyle(
+                                                            fontSize: 18.0, 
+                                                            fontWeight: FontWeight.w500
+                                                          ),
+                                                        ),
 
-                                                      Icon(
-                                                        Icons.check_circle_outline_rounded,
-                                                        color: Colors.lightGreen,
-                                                        size: 30.0,
-                                                      )
+                                                        Row(
+                                                          children: const [
+                                                            Icon(
+                                                              Icons.access_time,
+                                                              size: 20.0,
+                                                            ),
+                                                            Text(
+                                                              'jam 9',
+                                                              style: TextStyle(
+                                                                fontSize: 14.0,
+                                                                fontWeight: FontWeight.w300
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
 
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                                // Padding(
-                                                //   padding: const EdgeInsets.only(right: 10.0),
-                                                //   child: SizedBox(
-                                                //     height: 1.0,
-                                                //     child: Container(
-                                                //       color: Colors.black26,
-                                                //     ),
-                                                //   ),
-                                                // ),
-                                              ],
+
+                                                  SizedBox(width: 120.0),
+                                                  
+                                                  const Icon(
+                                                    Icons.check_circle_outline_rounded,
+                                                    color: Colors.lightGreen,
+                                                    size: 30.0,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                           onTap: () {},
-                                        );
-                                      },
-                                    ),
-
+                                      );
+                                    }
                                   ),
-                                ],
-                              ),
-                            ),
+                                  
+                                  Text('Bulan Ini'),
 
-                            // thisDay(),
-                            thisMonth(),
-                          ],
+                                ]
+                              ),
+                              // child: Text('tes'),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                
+                        // Expanded(
+                        //   child: Container(
+                        //     // height: MediaQuery.of(context).size.height,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.yellow
+                        //     ),
+                        //     child: Text('tes'),
+                        //   ),
+                        // )
+                          
+                      ],
+                    ),
                   ),
                 ),
               ),
+
+                    // Expanded(
+                    //   child: ListView.builder(
+                    //     itemCount: documentmodel.length,
+                    //     itemBuilder: (context, index) {
+                    //       DocumentModel document = documentmodel[index];
+                    //       return InkWell(
+                    //         child: Card(
+                    //           child: Row(
+                    //             children: [
+                    //               Container(
+                    //                 child: Icon(Icons.ac_unit),
+                    //               ),
+                    //               Container(
+                    //                 child: Column(
+                    //                   children: [
+                    //                     Text(document.judul),
+                    //                     Text(document.deskripsi),
+                    //                     Text('jam 9'),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         onTap: () {},
+                    //       );
+                    //     }
+                    //   ),
+                    // ),
             ],
-          )
+          ),
         ),
+
     );
   }
 }
@@ -412,15 +421,92 @@ class thisDay extends StatelessWidget {
             ],
           ),
         ),
-        
+
         SizedBox(height: 10.0),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
-            
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(5.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                    border: Border.all(color: Colors.black26)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
+                    Container(
+                      height: 50.0,
+                      width: 50.0,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.blue),
+                      child: const Icon(
+                        Icons.quiz_outlined,
+                        color: Colors.white,
+                        size: 30.0,
+                        // color: Colors.blue,
+                      ),
+                    ),
+
+                    SizedBox(width: 10.0),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text(
+                            "Collection - matkul",
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(height: 5.0),
+                          const Text(
+                            "Quiz 1",
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 5.0),
+                          Row(
+                            children: const <Widget>[
+                              Icon(
+                                Icons.access_time,
+                                size: 20.0,
+                              ),
+                              SizedBox(width: 5.0),
+                              Text(
+                                "09:00 WIB",
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(width: 5.0),
+
+                    const Icon(
+                      Icons.check_circle_outline_rounded,
+                      color: Colors.lightGreen,
+                      size: 30.0,
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
+
       ],
     );
   }
