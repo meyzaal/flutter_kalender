@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/components/calendar_widget.dart';
-import 'package:flutter_event_calendar/models/event_model.dart';
+import 'package:flutter_event_calendar/models/event_model_local.dart';
+// import 'package:flutter_event_calendar/models/event_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class EventCalendar extends StatefulWidget {
@@ -13,50 +14,30 @@ class EventCalendar extends StatefulWidget {
   State<EventCalendar> createState() => _EventCalendarState();
 }
 
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
-
 class _EventCalendarState extends State<EventCalendar> {
-  List<DocumentModel> documentmodel = [];
-  DocumentRepository repository = DocumentRepository();
+  // List<DocumentModel> documentmodel = [];
+  // DocumentRepository repository = DocumentRepository();
 
-  getData() async {
-    documentmodel = await repository.getData();
-    setState(() {});
-  }
+  // getData() async {
+  //   documentmodel = await repository.getData();
+  //   setState(() {});
+  // }
 
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   getData();
+  //   super.initState();
+  // }
 
-  Future<Null> _refresh() {
-    return getData().then((_documentmodel) {
-      setState(() => documentmodel = _documentmodel);
-    });
-  }
+  // Future<Null> _refresh() {
+  //   return getData().then((_documentmodel) {
+  //     setState(() => documentmodel = _documentmodel);
+  //   });
+  // }
 
   bool _switchValue = false;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        print(_selectedDay);
-        // print();
-        // _rangeStart = null; // Important to clean those
-        // _rangeEnd = null;
-        // _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      });
 
-      // _selectedEvents.value = _getEventsForDay(selectedDay);
-    }
-  }
+  // _selectedEvents.value = _getEventsForDay(selectedDay);
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +70,12 @@ class _EventCalendarState extends State<EventCalendar> {
               child: Container(
                 padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
                   ),
-                  color: Colors.white,
+                  // color: Colors.white,
                 ),
                 child: Column(
                   children: <Widget>[
@@ -132,6 +114,7 @@ class _EventCalendarState extends State<EventCalendar> {
                     SizedBox(height: 20.0),
                     Expanded(
                       child: Container(
+                        // height: MediaQuery.of(context).size.height,
                         // color: Colors.amber,
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         // color: Colors.blue,
@@ -160,105 +143,244 @@ class _EventCalendarState extends State<EventCalendar> {
                                   ],
                                 ),
                                 SizedBox(height: 10.0),
-                                Container(
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: documentmodel.length,
-                                      itemBuilder: (context, index) {
-                                        DocumentModel document =
-                                            documentmodel[index];
-                                        return Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          padding: EdgeInsets.all(5.0),
-                                          margin: EdgeInsets.only(bottom: 5.0),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(10.0),
-                                              ),
-                                              border: Border.all(
-                                                  color: Colors.black26)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Container(
-                                                height: 50.0,
-                                                width: 50.0,
-                                                decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.blue),
-                                                child: const Icon(
-                                                  Icons.quiz_outlined,
-                                                  color: Colors.white,
+                                Expanded(
+                                  child: Container(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: documentmodel.length,
+                                        itemBuilder: (context, index) {
+                                          DocumentModel document =
+                                              documentmodel[index];
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            padding: EdgeInsets.all(5.0),
+                                            margin:
+                                                EdgeInsets.only(bottom: 5.0),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                                border: Border.all(
+                                                    color: Colors.black26)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors.blue),
+                                                  child: const Icon(
+                                                    Icons.quiz_outlined,
+                                                    color: Colors.white,
+                                                    size: 30.0,
+                                                    // color: Colors.blue,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10.0),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        // "Collection",
+                                                        document.judul,
+                                                        style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                      ),
+                                                      SizedBox(height: 5.0),
+                                                      Text(
+                                                        // "Quiz 1",
+                                                        document.deskripsi,
+                                                        style: TextStyle(
+                                                            fontSize: 18.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      SizedBox(height: 5.0),
+                                                      Row(
+                                                        children: const <
+                                                            Widget>[
+                                                          Icon(
+                                                            Icons.access_time,
+                                                            size: 20.0,
+                                                          ),
+                                                          SizedBox(width: 5.0),
+                                                          Text(
+                                                            "09:00 WIB",
+                                                            style: TextStyle(
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(width: 5.0),
+                                                Icon(
+                                                  Icons
+                                                      .check_circle_outline_rounded,
+                                                  color: Colors.lightGreen,
                                                   size: 30.0,
-                                                  // color: Colors.blue,
                                                 ),
-                                              ),
-                                              SizedBox(width: 10.0),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Text(
-                                                      // "Collection",
-                                                      document.judul,
-                                                      style: TextStyle(
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w300),
-                                                    ),
-                                                    SizedBox(height: 5.0),
-                                                    Text(
-                                                      // "Quiz 1",
-                                                      document.deskripsi,
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                    SizedBox(height: 5.0),
-                                                    Row(
-                                                      children: const <Widget>[
-                                                        Icon(
-                                                          Icons.access_time,
-                                                          size: 20.0,
-                                                        ),
-                                                        SizedBox(width: 5.0),
-                                                        Text(
-                                                          "09:00 WIB",
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(width: 5.0),
-                                              Icon(
-                                                Icons
-                                                    .check_circle_outline_rounded,
-                                                color: Colors.lightGreen,
-                                                size: 30.0,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                  ),
                                 ),
                               ],
                             ),
                             // Today(),
-                            thisMonth(),
+                            // thisMonth(),
+                            Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Bulan ini",
+                                      style: TextStyle(fontSize: 16.0),
+                                    ),
+                                    SizedBox(
+                                      width: 20.0,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.black26,
+                                        height: 1.0,
+                                        // width: MediaQuery.of(context).size.width,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.0),
+                                Expanded(
+                                  child: Container(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: documentmodel.length,
+                                        itemBuilder: (context, index) {
+                                          DocumentModel document =
+                                              documentmodel[index];
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            padding: EdgeInsets.all(5.0),
+                                            margin:
+                                                EdgeInsets.only(bottom: 5.0),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                                border: Border.all(
+                                                    color: Colors.black26)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors.blue),
+                                                  child: const Icon(
+                                                    Icons.quiz_outlined,
+                                                    color: Colors.white,
+                                                    size: 30.0,
+                                                    // color: Colors.blue,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10.0),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Text(
+                                                        // "Collection",
+                                                        document.judul,
+                                                        style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                      ),
+                                                      SizedBox(height: 5.0),
+                                                      Text(
+                                                        // "Quiz 1",
+                                                        document.deskripsi,
+                                                        style: TextStyle(
+                                                            fontSize: 18.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      SizedBox(height: 5.0),
+                                                      Row(
+                                                        children: const <
+                                                            Widget>[
+                                                          Icon(
+                                                            Icons.access_time,
+                                                            size: 20.0,
+                                                          ),
+                                                          SizedBox(width: 5.0),
+                                                          Text(
+                                                            "09:00 WIB",
+                                                            style: TextStyle(
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(width: 5.0),
+                                                Icon(
+                                                  Icons
+                                                      .check_circle_outline_rounded,
+                                                  color: Colors.lightGreen,
+                                                  size: 30.0,
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -270,51 +392,6 @@ class _EventCalendarState extends State<EventCalendar> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Today extends StatelessWidget {
-  const Today({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 70.0,
-                // color: Colors.amber,
-                child: const Text(
-                  "Hari ini",
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ),
-              // SizedBox(
-              //   width: 20.0,
-              // ),
-              Expanded(
-                child: Container(
-                  color: Colors.black26,
-                  height: 1.0,
-                  // width: MediaQuery.of(context).size.width,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(),
-        ),
-      ],
     );
   }
 }
